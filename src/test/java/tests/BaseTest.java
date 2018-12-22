@@ -17,6 +17,7 @@ public class BaseTest {
 		driver = new ChromeDriver(cOptions);
 		driver.manage().window().maximize();
 		driver.get("https://www.saucedemo.com/");
+		System.out.println("1");
 	}
 	
 	@AfterClass
