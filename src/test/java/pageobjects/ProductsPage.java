@@ -8,6 +8,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 
+import io.qameta.allure.Step;
+
 public class ProductsPage extends BasePage{
 	@FindBy(css=".inventory_item")
 	@CacheLookup
@@ -23,6 +25,7 @@ public class ProductsPage extends BasePage{
 		super(driver);
 	}
 
+	@Step ("Add To Cart {0}")
 	public void addToCart(String name) {
 		for (int i = 0; i < list.size(); i++) {
 			WebElement titleEl = list.get(i).findElement(By.cssSelector(".inventory_item_name"));
