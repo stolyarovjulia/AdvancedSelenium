@@ -15,6 +15,7 @@ import pageobjects.OverViewPage;
 import pageobjects.ProductsPage;
 import pageobjects.YourCartPage;
 import pageobjects.YourInfoPage;
+import utilities.AllureAttachment;
 
 @Epic("Shopping Cart")
 public class AddToCartTest extends BaseTest {
@@ -37,7 +38,7 @@ public class AddToCartTest extends BaseTest {
 
 		YourInfoPage yipPage = new YourInfoPage(driver);
 		yipPage.addYourInfo("gal", "ester", "555");
-
+		AllureAttachment.addTextAttachment("Nir Tal Rules");
 		OverViewPage ovPage = new OverViewPage(driver);
 		ovPage.cancel();
 
@@ -47,7 +48,7 @@ public class AddToCartTest extends BaseTest {
 	}
 
 	@Severity(SeverityLevel.CRITICAL)
-	@Story("As a User when I add item to Cart than cancel the item should be deleted")
+	@Story("As a User when I add item to Cart than Confirm there should be order confirmation")
 	@Test(priority = 0, description = "Add To Cart And Confirm")
 	public void addToCartSucceed() {
 		ProductsPage pPage = new ProductsPage(driver);
