@@ -32,7 +32,6 @@ public class AddToCartTest extends BaseTest {
 		pPage.addToCart("Sauce Labs Bolt T-Shirt");
 		pPage.addToCart("Sauce Labs Fleece Jacket");
 		pPage.openCart();
-
 		YourCartPage ycPage = new YourCartPage(driver);
 		ycPage.checkOut();
 
@@ -65,5 +64,6 @@ public class AddToCartTest extends BaseTest {
 
 		CompletePage cPage = new CompletePage(driver);
 		Assert.assertEquals(cPage.getMessage(), "THANK YOU FOR YOUR ORDER");
+		Assert.fail();
 	}
 }
