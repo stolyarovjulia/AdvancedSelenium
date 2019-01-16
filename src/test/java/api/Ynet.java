@@ -9,12 +9,14 @@ import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
-public class ApiTest extends BaseTest {
+public class Ynet extends BaseTest {
 	@Test(description = "GET YNET return 200")
 	public void StatusCode200Ynet() throws InterruptedException {
 
 		{
 			given().log().all().when().get("home/0,7340,L-8,00.html").then().statusCode(200);
+			given().log().ifValidationFails().when().get("home/0,7340,L-8,00.html").then().statusCode(200);
+
 
 		}
 	}
