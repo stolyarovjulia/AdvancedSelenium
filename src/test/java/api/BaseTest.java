@@ -8,5 +8,8 @@ public class BaseTest {
 	@BeforeClass
 	protected void setup() {
 		RestAssured.baseURI = "https://www.ynet.co.il/";
+		RestAssured.proxy("localhost",8888); 
+		RestAssured.useRelaxedHTTPSValidation();
+
 	}
 }

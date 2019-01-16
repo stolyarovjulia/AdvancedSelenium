@@ -14,7 +14,7 @@ public class ApiTest extends BaseTest {
 	public void StatusCode200Ynet() throws InterruptedException {
 
 		{
-			given().when().get("home/0,7340,L-8,00.html").then().statusCode(200);
+			given().log().all().when().get("home/0,7340,L-8,00.html").then().statusCode(200);
 
 		}
 	}
@@ -25,6 +25,9 @@ public class ApiTest extends BaseTest {
 		{
 			RequestSpecification httpRequest = RestAssured.given();
 			Response response = httpRequest.get("home/0,7340,L-8,00.html1");
+			if (response.getStatusCode() == 400) {
+
+			}
 			Assert.assertNotEquals(403, response.getStatusCode(), "Test Failed Response is" + response.getStatusCode());
 
 		}
