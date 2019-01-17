@@ -5,6 +5,8 @@ import static io.restassured.RestAssured.*;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import io.restassured.response.Response;
+
 public class HotelApp extends BaseTest {
 
 	@Test(description = "Post", enabled = false)
@@ -15,14 +17,23 @@ public class HotelApp extends BaseTest {
 		}
 	}
 	
-	@Test(description = "Delete", enabled = false)
-	public void DeleteNewHotel() throws InterruptedException {
+	@Test(description = "Delete Static", enabled = true)
+	public void DeleteNewHotelStatic() throws InterruptedException {
 		{
-			given().pathParam("hotelId", 9).when().delete("http://localhost:8090/example/v1/hotels/{hotelId}").then().statusCode(204);
+			given().pathParam("hotelId", 11).when().delete("http://localhost:8090/example/v1/hotels/{hotelId}").then().statusCode(204);
+		}
+	}
+	
+	@Test(description = "Delete Dynamic", enabled = true)
+	public void DeleteNewHotelDynamic() throws InterruptedException {
+		{
+			Response response = when().get("http://localhost:8090/example/v1/hotels").then().extract().response();
+			int hotelId = response.path("content[0].id");
+			given().pathParam("hotelId", hotelId).when().delete("http://localhost:8090/example/v1/hotels/{hotelId}").then().statusCode(204);
 		}
 	}
 
-	@Test(description = "PUT", enabled = true)
+	@Test(description = "PUT", enabled = false)
 	public void PUTNewHotel() throws InterruptedException {
 		{
 			String Body = "{\n \"id\": 10,\n\"city\": \"Safed1 \",\n\"description\": \"AirBNB\",\n\"name\":\"BMC hotel\",\n\"rating\":10\n}";
