@@ -11,23 +11,28 @@ public class BasePage {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 	}
-	
+
 	protected void click(WebElement el) {
-		//highlight
+		// highlight
 		el.click();
 	}
-	
-	protected void fillText(WebElement el,String text) {
-		//hightlight
+
+	/**
+	 * This method fills text in a given webelement
+	 * @param el the element we want to fill
+	 * @param text the text needed to fill 
+	 */
+	protected void fillText(WebElement el, String text) {
+		// hightlight
 		el.clear();
 		el.sendKeys(text);
 	}
-	
+
 	protected String getText(WebElement el) {
-		//highlight
+		// highlight
 		return el.getText();
 	}
-	
+
 	protected void sleep(int mil) {
 		try {
 			Thread.sleep(mil);
@@ -36,6 +41,5 @@ public class BasePage {
 			e.printStackTrace();
 		}
 	}
-	
-	
+
 }

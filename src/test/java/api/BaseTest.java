@@ -12,9 +12,9 @@ public class BaseTest {
 		RestAssured.baseURI = "https://www.ynet.co.il/";
 		RestAssured.proxy("localhost", 8888);
 		RestAssured.useRelaxedHTTPSValidation();
-//		RequestSpecification requestSpecification = new RequestSpecBuilder()
-//				.addHeader("Content-Type", "application/json").build();
-//		RestAssured.requestSpecification = requestSpecification;
+		RequestSpecification requestSpecification = new RequestSpecBuilder()
+				.addHeader("Content-Type", "application/json").build();
+		RestAssured.requestSpecification = requestSpecification;
 
 	}
 }
