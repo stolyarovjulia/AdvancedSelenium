@@ -19,17 +19,20 @@ public class HotelApp extends BaseTest {
 		}
 	}
 
-	@Test(description = "Dynamic Post", enabled = false)
-	public void PostCreateNewHotelDynamic() throws InterruptedException {
+	@Test(description = "Static Post", enabled = false)
+	public void PostCreateNewHotelStatic1() throws InterruptedException {
 		{
-			createFakeHotel("hod Hasharon", "Automation Hotel", "Nir Great hotel", 5);
+			Hotel hotel = new Hotel("hod Hasharon", "Automation Hotel", "Nir Great hotel", 5);
+			createHotel(hotel);
+			createHotel("hod Hasharon", "Automation Hotel", "Nir Great hotel", 5);
+
 		}
 	}
 
 	@Test(description = "Dynamic Post", enabled = false, invocationCount = 50)
 	public void PostCreateNewHotelDynamic1() throws InterruptedException {
 		{
-			createFakeHotel();
+			createHotel();
 		}
 	}
 
@@ -41,12 +44,23 @@ public class HotelApp extends BaseTest {
 		}
 	}
 
-	@Test(description = "Delete All Hotels", enabled = true)
+	@Test(description = "Delete All Hotels", enabled = false)
 	public void DeleteNewHotelDynamic() throws InterruptedException {
 		{
 			Response response = when().get("http://localhost:8090/example/v1/hotels").then().extract().response();
-			ArrayList<Integer> hotelIDS = new ArrayList<>();
-			hotelIDS.addAll(response.path("content.id"));
+			ArrayList<Integer> hotelIDS = new ArrayList<>(response.path("content.id"));
+			hotelIDS.forEach(ID -> {
+				given().pathParam("hotelId", ID).when().delete("http://localhost:8090/example/v1/hotels/{hotelId}")
+						.then().statusCode(204);
+			});
+		}
+	}
+	
+	@Test(description = "Delete Hotels By Rating", enabled = true)
+	public void DeleteNewHotelDynamicByRating() throws InterruptedException {
+		{
+			Response response = when().get("http://localhost:8090/example/v1/hotels").then().extract().response();
+			ArrayList<Integer> hotelIDS = response.path("content.findAll {it.rating == 5}.id");
 			hotelIDS.forEach(ID -> {
 				given().pathParam("hotelId", ID).when().delete("http://localhost:8090/example/v1/hotels/{hotelId}")
 						.then().statusCode(204);
@@ -63,7 +77,7 @@ public class HotelApp extends BaseTest {
 		}
 	}
 
-	private void createFakeHotel(String city, String description, String Name, int rating) {
+	private void createHotel(String city, String description, String Name, int rating) {
 		given().log().all()
 				.body(String.format(
 						"{\r\n\"city\": \"%s\",\r\n\"description\": \"%s\",\r\n\"name\":\"%s\",\r\n\"rating\":%d\r\n}",
@@ -71,7 +85,11 @@ public class HotelApp extends BaseTest {
 				.when().post("http://localhost:8090/example/v1/hotels").then().statusCode(201);
 	}
 
-	private void createFakeHotel() {
+	private void createHotel(Hotel hotel) {
+		given().log().all().body(hotel).when().post("http://localhost:8090/example/v1/hotels").then().statusCode(201);
+	}
+
+	private void createHotel() {
 		given().log().all()
 				.body(String.format(
 						"{\r\n\"city\": \"%s\",\r\n\"description\": \"%s\",\r\n\"name\":\"%s\",\r\n\"rating\":%d\r\n}",
