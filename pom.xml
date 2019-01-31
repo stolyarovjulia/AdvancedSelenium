@@ -85,7 +85,7 @@
 						-javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
 					</argLine>
 					<systemPropertyVariables>
-						<enableVideo>$(enableVideo)</enableVideo>
+						<debug>$(debug)</debug>
 					</systemPropertyVariables>
 				</configuration>
 			</plugin>
