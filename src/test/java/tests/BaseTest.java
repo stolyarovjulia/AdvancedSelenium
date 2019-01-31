@@ -19,7 +19,7 @@ public class BaseTest {
         testContext.setAttribute("WebDriver", this.driver);
 		driver.manage().window().maximize();
 		driver.get("https://www.saucedemo.com/");
-		System.out.println("1");
+		System.out.println("was 1 now is 2");
 	}
 	
 	@AfterClass
