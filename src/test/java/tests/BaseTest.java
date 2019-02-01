@@ -35,7 +35,7 @@ public class BaseTest {
 		}
 		testContext.setAttribute("WebDriver", this.driver);
 		driver.get("https://www.saucedemo.com/");
-		System.out.println("was 1 now is 2");
+		System.out.println("julia");
 	}
 
 	@AfterClass
